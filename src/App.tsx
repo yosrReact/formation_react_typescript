@@ -7,18 +7,18 @@ import {
   Route,
   Navigate,
 } from "react-router-dom"
-import Menu from "./components/menu/Menu"
-import TaskDetails from "./pages/taskDetails/TaskDetails"
+import TeacherRoutes from "./components/teacherRoutes/TeacherRoutes"
+import StudentRoutes from "./components/studentRoutes/StudentRoutes"
 function App() {
   return (
     <div className="app">
       <Router>
-        <Menu />
         <Routes>
-          <Route path="/" element={<Navigate to="/tasks" replace />} />
-          <Route path="/hello" element={<Hello />} />
-          <Route path="/tasks" element={<TaskPage />} />
-          <Route path="/tasks/:id" element={<TaskDetails />} />
+          <Route path="/teachers/*" element={<TeacherRoutes />} />
+          <Route path="/students" element={<StudentRoutes />}>
+            <Route path="" element={<Navigate to="hello" replace />} />
+            <Route path="hello" element={<Hello />} />
+          </Route>
         </Routes>
       </Router>
     </div>

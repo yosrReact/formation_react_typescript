@@ -30,13 +30,13 @@ export default function Task({
 
   const navigate = useNavigate()
   const handleDetails = () => {
-    navigate(`/tasks/${id}`)
+    navigate(id)
   }
   return (
     <div className="task" style={{ backgroundColor: "cyan" }}>
       {!updateMode ? (
         <>
-          {/* <Link to={`/tasks/${id}`}> */}
+          {/* <Link to={`${id}`}> */}
           {/* chemin relative sans le "/" */}
           {/* <Link to={`${id}`}> */}
 
