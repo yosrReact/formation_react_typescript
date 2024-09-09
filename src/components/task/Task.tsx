@@ -1,5 +1,7 @@
 import "./task.css"
 import { useState } from "react"
+import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 export default function Task({
   id,
   title,
@@ -25,11 +27,25 @@ export default function Task({
   function help() {
     return <div>click for help</div>
   }
+
+  const navigate = useNavigate()
+  const handleDetails = () => {
+    navigate(`/tasks/${id}`)
+  }
   return (
     <div className="task" style={{ backgroundColor: "cyan" }}>
       {!updateMode ? (
         <>
-          <div className="title">{title}</div>
+          {/* <Link to={`/tasks/${id}`}> */}
+          {/* chemin relative sans le "/" */}
+          {/* <Link to={`${id}`}> */}
+
+          <div className="title" onClick={handleDetails}>
+            {title}
+          </div>
+
+          {/* <div className="title">{title}</div>
+          </Link> */}
           <div className="title">{duration}</div>
           <div className="title">{details?.level}</div>
 
