@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import TaskForm from "../../components/taskForm/TaskForm"
 import TasksList from "./../../components/tasksList/TasksList"
 import { TodoItem } from "./../../utils/types"
-import * as api from "../../services/tasks.service"
+import * as api from "../../services/tasks3.service"
 function TaskPage() {
   const [isVisible, setIsVisible] = useState(true)
   const toggleVisibility = () => {

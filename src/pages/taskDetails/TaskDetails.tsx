@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { fetchTaskById } from "../../services/tasks.service"
+import { fetchTaskById } from "../../services/tasks3.service"
 import { useParams } from "react-router-dom"
 import { TodoItem } from "./../../utils/types"
 type ParamTypes = {

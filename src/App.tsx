@@ -9,20 +9,70 @@ import {
 } from "react-router-dom"
 import TeacherRoutes from "./components/teacherRoutes/TeacherRoutes"
 import StudentRoutes from "./components/studentRoutes/StudentRoutes"
+import { useEffect, useState } from "react"
+import { me } from "./services/tasks3.service"
+import Login from "./pages/login/Login"
+type UserState = {
+  firstName: string
+  lastName: string
+  role: string
+}
 function App() {
-  return (
-    <div className="app">
-      <Router>
-        <Routes>
-          <Route path="/teachers/*" element={<TeacherRoutes />} />
-          <Route path="/students" element={<StudentRoutes />}>
-            <Route path="" element={<Navigate to="hello" replace />} />
-            <Route path="hello" element={<Hello />} />
-          </Route>
-        </Routes>
-      </Router>
-    </div>
-  )
+  const token = localStorage.getItem("token")
+
+  const [user, setUser] = useState<UserState>()
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      try {
+        if (token) {
+          const user = await me()
+          setUser(user)
+          console.log("user: ", user)
+        }
+      } catch (e) {}
+    }
+    fetchMe()
+  }, [])
+  if (token && user?.role === "admin") {
+    return (
+      <div className="app">
+        <Router>
+          <Routes>
+            <Route path="" element={<Navigate to="/teachers" replace />} />
+            <Route path="/teachers/*" element={<TeacherRoutes />} />
+          </Routes>
+        </Router>
+      </div>
+    )
+  } else if (token && user?.role === "user") {
+    return (
+      <div className="app">
+        <Router>
+          <Routes>
+            <Route path="" element={<Navigate to="/students" replace />} />
+            <Route path="/students" element={<StudentRoutes />}>
+              <Route path="" element={<Navigate to="hello" replace />} />
+              <Route path="hello" element={<Hello />} />
+            </Route>
+          </Routes>
+        </Router>
+      </div>
+    )
+  } else if (!token) {
+    return (
+      <div className="app">
+        <Router>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </Router>
+      </div>
+    )
+  } else {
+    return <div>Loading...</div>
+  }
 }
 
 export default App
