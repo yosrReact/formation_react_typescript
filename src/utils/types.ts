@@ -6,3 +6,9 @@ export type TodoItemData = {
 export type TodoItem = {
   _id: string
 } & TodoItemData
+
+export type User = {
+  firstName: string
+  lastName: string
+  role: string
+}

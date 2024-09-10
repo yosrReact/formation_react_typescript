@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { UserContext } from "../../utils/context"
 interface FormProps {
   addTask: (title: string, duration: number) => void
 }
 export default function TaskForm(props: FormProps) {
   // props.sayHello()
-
+  const user = useContext(UserContext)
   const [title, setTitle] = useState<string>("")
   const [duration, setDuration] = useState<number>(0)
   const addTask = "Add a task"
@@ -15,6 +16,7 @@ export default function TaskForm(props: FormProps) {
   }
   return (
     <div className="task-form">
+      Hi {user.firstName}
       <ul>
         {steps.map((step) => (
           <li>{step}</li>
